@@ -28,7 +28,7 @@
 * If the server fails for any reason, then none of the requests of the clients can be fulfilled. This leads of failure of the client server network.
 * The cost of setting and maintaining a client server model are quite high.
 
-## <p align = "center">HOW A REQUEST GET SERVED</p>
+## <p align = "center">HOW A REQUEST GET SERVED ?</p>
 #### HTTP request
 * A simple request message from a client computer consists of the following components:
   * A request line to get a required resource, for example a request GET /content/page1.html is requesting a resource called /content/page1.html from the server.
