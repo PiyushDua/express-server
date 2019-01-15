@@ -70,4 +70,3 @@ This extension adds rich language support for the HTML Markup to VS Code, includ
 
 
 
-
