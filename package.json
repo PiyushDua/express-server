@@ -4,8 +4,10 @@
   "description": "\"Printing a pattern\"",
   "main": "index.js",
   "scripts": {
-    "Equilateral-triangle" : "nodemon extra/patterns/Equilateral-triangle.js",
-    "Diamond-pattern" : "nodemon extra/patterns/Diamond-pattern.js",
+    "Equilateral-triangle": "nodemon extra/patterns/Equilateral-triangle.js",
+    "Diamond-pattern": "nodemon extra/patterns/Diamond-pattern.js",
+    "Validation": "nodemon extra/utils/validation.js",
+    "Permissions": "nodemon extra/utils/permissions.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
