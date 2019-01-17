@@ -1,0 +1,21 @@
+{
+  "name": "express-server",
+  "version": "1.0.0",
+  "description": "\"Printing a pattern\"",
+  "main": "index.js",
+  "scripts": {
+    "Equilateral-triangle" : "nodemon extra/patterns/Equilateral-triangle.js",
+    "Diamond-pattern" : "nodemon extra/patterns/Diamond-pattern.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PiyushDua/express-server.git"
+  },
+  "author": "Piyush Dua",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PiyushDua/express-server/issues"
+  },
+  "homepage": "https://github.com/PiyushDua/express-server#readme"
+}
