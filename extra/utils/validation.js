@@ -28,32 +28,17 @@ function validateUsers(users) {
   users.forEach(function(user_email, index) {
     const { traineeEmail, reviewerEmail } = user_email;
     if (validateEmail(traineeEmail) && validateEmail(reviewerEmail)) {
-      valid_users.push(`User - ${index + 1}`);
+      valid_users.push(`User-${index + 1}`);
     } else {
-      Invalid_users.push(`User - ${index + 1}`);
+      Invalid_users.push(`User-${index + 1}`);
     }
   });
 
-  console.log("Valid users are -");
-  if (valid_users.length == 0) {
-    console.log("No valid users");
-  } else {
-    valid_users.forEach(function(val) {
-      console.log(val);
-    });
-  }
+  console.log(`Valid users are - ${valid_users.length}`);
+  console.log(valid_users);
 
-  console.log("\nInvalid users are -");
-  if (Invalid_users.length == 0) {
-    console.log("No Invalid users");
-  } else {
-    Invalid_users.forEach(function(inv) {
-      console.log(inv);
-    });
-  }
-
-  console.log(`\nNumber of Valid users are - ${valid_users.length}`);
-  console.log(`Number of Invalid users are - ${Invalid_users.length}`);
+  console.log(`\nInvalid users are - ${Invalid_users.length}`);
+  console.log(Invalid_users);
 }
 
 validateUsers(users);

@@ -1,11 +1,10 @@
+const getUser = "getUsers";
+const HeadTrainer = "head-trainer";
+const Trainee = "trainee";
+const Trainer = "trainer";
+
 const permissions = {
-  getUsers1: {
-    all: ["head-trainer"],
-    read: ["trainee", "trainer"],
-    write: ["trainer"],
-    delete: []
-  },
-  getUsers2: {
+  getUsers: {
     all: ["head-trainer"],
     read: ["trainee", "trainer"],
     write: ["trainer"],
@@ -28,5 +27,5 @@ function hasPermission(moduleName, role, permissionType) {
   }
 }
 
-console.log(hasPermission("getUsers1", "trainee", "all"));
-console.log(hasPermission("getUsers1", "head-trainer", "write"));
+console.log(hasPermission("getUsers", "trainee", "all"));
+console.log(hasPermission("getUsers", "head-trainer", "write"));
