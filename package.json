@@ -12,6 +12,7 @@
     "start": "tsc-watch --project . --onSuccess \"npm run nodemon\"",
     "prestart": "npm run clean",
     "clean": "rm -r dist && mkdir dist",
+    "extraTs": "tsc-watch --project . --onSuccess \"npm run nodemon \"",
     "nodemon": "nodemon ./dist/index.js"
   },
   "repository": {
@@ -36,6 +37,10 @@
     "babel-preset-env": "^1.7.0",
     "tsc": "^1.20150623.0",
     "tsc-watch": "^1.1.34",
+    "babel-preset-env": "^1.7.0"
+  },
+  "devDependencies": {
+    "tsc-watch": "^1.0.31",
     "typescript": "^3.2.4"
   }
 }

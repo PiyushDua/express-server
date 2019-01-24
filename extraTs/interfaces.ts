@@ -6,7 +6,6 @@ export interface IPermissions {
     delete: string[];
   };
 }
-
 export interface IUsers {
   traineeEmail: string;
   reviewerEmail: string;
