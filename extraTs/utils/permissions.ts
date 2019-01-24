@@ -1,14 +1,14 @@
-import { permissions } from "../constants";
+import { PERMISSIONS } from "../constants";
 
 export default function hasPermission(
   moduleName: string,
   role: string,
   permissionType: string
 ): void {
-  if (permissions[moduleName]) {
+  if (PERMISSIONS[moduleName]) {
     if (
-      permissions[moduleName][permissionType].includes(role) ||
-      permissions[moduleName]["all"].includes(role)
+      PERMISSIONS[moduleName][permissionType].includes(role) ||
+      PERMISSIONS[moduleName]["all"].includes(role)
     ) {
       console.log(
         `${role} have the ${permissionType} permission for the module ${moduleName}`

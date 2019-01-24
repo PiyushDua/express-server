@@ -8,8 +8,8 @@ Diamond(10);
 Equilateral(5);
 Equilateral(10);
 
-hasPermission("getUser", "trainee", "all");
-hasPermission("getUser", "head-trainer", "write");
+hasPermission("GETUSER", "trainee", "all");
+hasPermission("GETUSER", "head-trainer", "write");
 
 const users: IUsers[] = [
   {
