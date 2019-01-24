@@ -1,10 +1,8 @@
 export default function errorHandler(err, req, res, next) {
   console.log("Inside Error Handler function");
-  const date: Date = new Date();
-  res.json({
-    error: "Not Found",
-    message: "error",
-    status: 500,
-    timestamp: date
-  });
+  const status = err.status || 800;
+  const message = err.message || "error";
+  const error = err.error || "Not Found";
+  const timestamp = new Date();
+  res.send({error, message, status, timestamp});
 }
