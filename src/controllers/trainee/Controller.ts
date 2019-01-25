@@ -1,7 +1,15 @@
 import { Request, Response, NextFunction } from "express";
 import successHandler from "../../libs/routes/successHandler";
 class TraineeController {
+  public static getInstance(instance: TraineeController) {
+    if (!instance) {
+      instance = new TraineeController();
+    }
+    return instance;
+  }
+
   get(req: Request, res: Response) {
+    console.log("Inside get method");
     const data = [
       {
         name: "trainee1"
@@ -13,10 +21,10 @@ class TraineeController {
     res.status(200);
 
     res.send(successHandler("Ok", "Successfully Fetch Trainee", data));
-    console.log("Inside get method");
   }
+
   create(req: Request, res: Response) {
-    console.log("-----------19------", req.body);
+    console.log("Inside create method");
     const { name, id } = req.body;
     if (!name) {
       res
@@ -34,7 +42,9 @@ class TraineeController {
         data: { name, id }
       });
   }
+
   put(req: Request, res: Response) {
+    console.log("Inside put method");
     const { name, id } = req.body;
     if (!name) {
       res
@@ -53,12 +63,14 @@ class TraineeController {
       });
   }
   delete(req: Request, res: Response) {
+    console.log("Inside delete method");
+    const id = req.params.id;
     res.status(200).send({
       status: "ok",
-      message: "Successfully deleted",
+      message: `Successfully deleted Id - ${id}`,
       data: null
     });
   }
 }
 
-export default new TraineeController();
+export default TraineeController.getInstance(new TraineeController());

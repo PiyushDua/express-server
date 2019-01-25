@@ -23,7 +23,7 @@ class Server {
       res.send("I am OK");
     });
 
-    app.use('/api',router);
+    app.use("/api", router);
     app.use(notFoundRoute);
     app.use(errorHandler);
   }
