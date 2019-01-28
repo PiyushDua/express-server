@@ -1,6 +1,7 @@
 import * as express from "express";
 import * as bodyParser from "body-parser";
 import { errorHandler, notFoundRoute } from "./libs/routes";
+import router from "./router";
 class Server {
   private app: express.Express;
   constructor(private config) {
@@ -10,8 +11,8 @@ class Server {
 
   public bootstrap() {
     console.log("Inside bootstrap");
-    this.setupRoutes();
     this.initBodyParser();
+    this.setupRoutes();
     return this;
   }
 
@@ -21,6 +22,8 @@ class Server {
     app.use("/health-check", (req, res) => {
       res.send("I am OK");
     });
+
+    app.use("/api", router);
     app.use(notFoundRoute);
     app.use(errorHandler);
   }
@@ -40,7 +43,7 @@ class Server {
 
   private initBodyParser() {
     const { app } = this;
-    app.use(bodyParser.urlencoded({ extended: false }));
+    app.use(bodyParser.urlencoded({ extended: true }));
     app.use(bodyParser.json());
   }
 }
