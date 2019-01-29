@@ -3,7 +3,7 @@ function validationHandler(config) {
     const key_value = Object.keys(config);
     key_value.forEach(key => {
       const item = config[key];
-      const values = item.in.map(item => {
+      let values = item.in.map(item => {
         return req[item][key];
       });
 
@@ -16,14 +16,26 @@ function validationHandler(config) {
             message: item.errorMessage || `${key} is required`
           });
         }
-      } else if (isNaN(req.query.skip) && isNaN(req.query.limit)) {
-        req.query.skip = 0;
-        req.query.limit = 10;
       }
-      console.log(req.query.skip);
-      console.log(req.query.limit);
+      if (item && !item.required) {
+        console.log("Inside required middle ware");
+        const variable = values.filter(item => item);
+        if (isNaN(values)) {
+          console.log("Not a number");
+          next({
+            status: "Bad request",
+            message: item.errorMessage || `${key} is required`
+          });
+        }
+      } else {
+        if (values === "") {
+          values = item.default;
+          console.log(key, "=", values);
+        } else {
+          console.log(key, "=", values);
+        }
+      }
 
-    
       if (item && item.string) {
         console.log("Inside string check middle ware");
         const variable = values.filter(item => item);
@@ -46,17 +58,6 @@ function validationHandler(config) {
           });
         }
       }
-
-      // if (item && item.number) {
-      //   console.log("Inside number check middle ware");
-      //   const variable = values.filter(item => item);
-      //   if (typeof variable[0] != "number") {
-      //     next({
-      //       status: "Bad Request",
-      //       message: `${key} should be number` || "Error Occurred"
-      //     });
-      //   }
-      // }
 
       if (item && item.isObject) {
         const variable = values.filter(item => item);
