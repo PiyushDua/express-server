@@ -1,5 +1,6 @@
 import * as jwt from "jsonwebtoken";
 import hasPermission from "./permissions";
+import UserRepository from "src/repositories/user/UserRepository";
 export default (module, permissionType) => (req, res, next) => {
   console.log("Inside auth middleware", module, permissionType);
   const token = req.header("Authorization");
@@ -22,5 +23,15 @@ export default (module, permissionType) => (req, res, next) => {
       }
     }
   });
+
+  // UserRepository.findOne({_id:user.id }).then(user => {
+  //   console.log("User is ", user);
+  //   if(!user) {
+  //     next({error:"Unauthorized Access", status: 403});
+  //   }
+  //   if(!hasPermission(module, role, permissionType)) {
+  //   }
+  // })
+
   next();
 };

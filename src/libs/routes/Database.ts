@@ -1,4 +1,5 @@
 import * as mongoose from "mongoose";
+import seedData from "../seedData";
 class Database {
   static open(mongoURL: string) {
     return new Promise((resolve, reject) => {
@@ -12,14 +13,9 @@ class Database {
             console.log(
               "Successfully connected to the Database ..................."
             );
-            const schema = new mongoose.Schema({ name: String, age: Number }); // Defining a schema
-            const Person = mongoose.model("Person", schema);
-            console.log(
-              "The Schema for the Person is",
-              new Person({ name: "trainee", age: 20 })
-            );
             resolve({ data: "hello" });
           }
+          seedData();
         }
       );
     });
