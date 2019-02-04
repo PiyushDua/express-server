@@ -1,6 +1,6 @@
-import { Request, Response, NextFunction } from "express";
-import successHandler from "../../libs/routes/successHandler";
-import UserRepository from "../../repositories/user/UserRepository";
+import { Request, Response } from 'express';
+import successHandler from '../../libs/routes/successHandler';
+import UserRepository from '../../repositories/user/UserRepository';
 class UserController {
   public static getInstance(instance: UserController) {
     if (!instance) {
@@ -9,32 +9,35 @@ class UserController {
     return instance;
   }
 
-  get(req: Request, res: Response) {
-    console.log("Inside get method");
+  public repository = new UserRepository();
+
+  public get(req, res: Response) {
+    console.log('Inside get method');
     const user = new UserRepository();
+    console.log(req.body);
     user
-      .getUser(req.query.id)
-      .then(data =>
+      .findOne({ _id: req.body.id })
+      .then((data) =>
         res
           .status(200)
-          .send(successHandler("User Data", "Successfully Fetch User", data))
+          .send(successHandler('User Data', 'Successfully Fetch User', data)),
       );
   }
 
-  create(req: Request, res: Response) {
-    console.log("Inside create method");
+  public create(req: Request, res: Response) {
+    console.log('Inside create method');
     const user = new UserRepository();
     user
       .create(req.body)
-      .then(data =>
+      .then((data) =>
         res
           .status(200)
-          .send(successHandler("Created", "Successfully Created User", data))
+          .send(successHandler('Created', 'Successfully Created User', data)),
       );
   }
 
-  put(req: Request, res: Response) {
-    console.log("Inside put method");
+  public put(req: Request, res: Response) {
+    console.log('Inside put method');
     const user = new UserRepository();
     const { oldData, newData } = req.body;
     user
@@ -44,16 +47,16 @@ class UserController {
           .status(200)
           .send(
             successHandler(
-              "Update",
-              "Successfully Updated User",
-              `${newData} is the new updated value`
-            )
-          )
+              'Update',
+              'Successfully Updated User',
+              `${newData} is the new updated value`,
+            ),
+          ),
       );
   }
 
-  delete(req: Request, res: Response) {
-    console.log("Inside delete method");
+  public delete(req: Request, res: Response) {
+    console.log('Inside delete method');
     const user = new UserRepository();
     user
       .delete(req.params)
@@ -62,11 +65,11 @@ class UserController {
           .status(200)
           .send(
             successHandler(
-              "Delete",
-              "Successfully Deleted User",
-              "Id is deleted"
-            )
-          )
+              'Delete',
+              'Successfully Deleted User',
+              'Id is deleted',
+            ),
+          ),
       );
   }
 }

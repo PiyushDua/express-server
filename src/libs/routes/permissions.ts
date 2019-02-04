@@ -1,13 +1,13 @@
-import { PERMISSIONS } from "./constants";
+import { PERMISSIONS } from './constants';
 export default function hasPermission(
   moduleName: string,
   role: string,
-  permissionType: string
+  permissionType: string,
 ): boolean {
   if (PERMISSIONS[moduleName]) {
     if (
       PERMISSIONS[moduleName][permissionType].includes(role) ||
-      PERMISSIONS[moduleName]["all"].includes(role)
+      PERMISSIONS[moduleName].all.includes(role)
     ) {
       return true;
     } else {
