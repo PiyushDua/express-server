@@ -1,35 +1,31 @@
-import * as mongoose from "mongoose";
+import * as mongoose from 'mongoose';
+import seedData from '../seedData';
 class Database {
-  static open(mongoURL: string) {
+  public static open(mongoURL: string) {
     return new Promise((resolve, reject) => {
       mongoose.connect(
         mongoURL,
         { useNewUrlParser: true },
-        err => {
+        (err) => {
           if (err) {
-            reject("Error occurred in connecting to the Database");
+            reject('Error occurred in connecting to the Database');
           } else {
             console.log(
-              "Successfully connected to the Database ..................."
+              'Successfully connected to the Database ...................',
             );
-            const schema = new mongoose.Schema({ name: String, age: Number }); // Defining a schema
-            const Person = mongoose.model("Person", schema);
-            console.log(
-              "The Schema for the Person is",
-              new Person({ name: "trainee", age: 20 })
-            );
-            resolve({ data: "hello" });
+            resolve({ data: 'hello' });
           }
-        }
+          seedData();
+        },
       );
     });
   }
 
-  static disconnect() {
+  public static disconnect() {
     if (mongoose.disconnect()) {
-      console.log("Successfully disconnected.................");
+      console.log('Successfully disconnected.................');
     } else {
-      console.log("Error in disconnecting");
+      console.log('Error in disconnecting');
     }
   }
 }

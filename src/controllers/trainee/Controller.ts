@@ -1,5 +1,5 @@
-import { Request, Response, NextFunction } from "express";
-import successHandler from "../../libs/routes/successHandler";
+import { Request, Response } from 'express';
+import successHandler from '../../libs/routes/successHandler';
 class TraineeController {
   public static getInstance(instance: TraineeController) {
     if (!instance) {
@@ -8,62 +8,64 @@ class TraineeController {
     return instance;
   }
 
-  get(req: Request, res: Response) {
-    console.log("Inside get method");
+  public get(req: Request, res: Response) {
+    console.log('Inside get method');
     const data = [
       {
-        name: "trainee1"
+        name: 'trainee1',
       },
       {
-        name: "trainee2"
-      }
+        name: 'trainee2',
+      },
     ];
     res.status(200);
 
-    res.send(successHandler("Ok", "Successfully Fetch Trainee", data));
+    res.send(successHandler('Ok', 'Successfully Fetch Trainee', data));
   }
 
-  create(req: Request, res: Response) {
-    console.log("Inside create method");
+  public create(req: Request, res: Response) {
+    console.log('Inside create method');
     const { name, id } = req.body;
     if (!name) {
       res
         .status(400)
-        .send({ status: "Bad request", message: "name is not present" });
+        .send({ status: 'Bad request', message: 'name is not present' });
     }
     if (!id) {
       res
         .status(400)
-        .send({ status: "Bad request", message: "ID is not present" });
-    } else
+        .send({ status: 'Bad request', message: 'ID is not present' });
+    } else {
       res.status(200).send({
-        status: "ok",
-        message: "Successfully Created",
-        data: { name, id }
+        data: { name, id },
+        message: 'Successfully Created',
+        status: 'ok',
       });
+    }
   }
 
-  put(req: Request, res: Response) {
-    console.log("Inside put method");
+  public put(req: Request, res: Response) {
+    console.log('Inside put method');
     const { name, id } = req.body;
     if (!id) {
       res
         .status(400)
-        .send({ status: "Bad request", message: "ID is not present" });
-    } else
+        .send({ status: 'Bad request', message: 'ID is not present' });
+    } else {
       res.status(200).send({
-        status: "ok",
-        message: "Successfully Updated",
-        data: { name, id }
+        data: { name, id },
+        message: 'Successfully Updated',
+        status: 'ok',
       });
+    }
   }
-  delete(req: Request, res: Response) {
-    console.log("Inside delete method");
+  public delete(req: Request, res: Response) {
+    console.log('Inside delete method');
     const id = req.params.id;
     res.status(200).send({
-      status: "ok",
+      data: 'null',
       message: `Successfully deleted Id - ${id}`,
-      data: null
+      status: 'ok',
     });
   }
 }

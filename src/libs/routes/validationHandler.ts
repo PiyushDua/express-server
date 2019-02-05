@@ -1,80 +1,80 @@
 function validationHandler(config) {
-  return function(req, res, next) {
-    const key_value = Object.keys(config);
-    key_value.forEach(key => {
-      const item = config[key];
-      let values = item.in.map(item => {
+  return ((req, res, next) => {
+    const keyvalue = Object.keys(config);
+    keyvalue.forEach((key) => {
+      const items = config[key];
+      let values = items.in.map((item) => {
         return req[item][key];
       });
 
-      if (item && item.required) {
-        console.log("Inside required middle ware");
-        const variable = values.filter(item => item);
+      if (items && items.required) {
+        console.log('Inside required middle ware');
+        const variable = values.filter((item) => item);
         if (variable.length !== values.length) {
           next({
-            status: "Bad Request",
-            message: item.errorMessage || `${key} is required`
+            message: items.errorMessage || `${key} is required`,
+            status: 'Bad Request',
           });
         }
       }
-      if (item && !item.required) {
-        console.log("Inside required middle ware");
-        const variable = values.filter(item => item);
+      if (items && !items.required) {
+        console.log('Inside required middle ware');
+        const variable = values.filter((item) => item);
         if (isNaN(values)) {
-          console.log("Not a number");
+          console.log('Not a number');
           next({
-            status: "Bad request",
-            message: item.errorMessage || `${key} is required`
+            message: items.errorMessage || `${key} is required`,
+            status: 'Bad request',
           });
         }
       } else {
-        if (values === "") {
-          values = item.default;
-          console.log(key, "=", values);
+        if (values === '') {
+          values = items.default;
+          console.log(key, '=', values);
         } else {
-          console.log(key, "=", values);
+          console.log(key, '=', values);
         }
       }
 
-      if (item && item.string) {
-        console.log("Inside string check middle ware");
-        const variable = values.filter(item => item);
-        if (typeof variable[0] != "string") {
+      if (items && items.string) {
+        console.log('Inside string check middle ware');
+        const variable = values.filter((item) => item);
+        if (typeof variable[0] !== 'string') {
           next({
-            status: "Bad Request",
-            message: `${key} should be string` || "Error Occurred"
+            message: `${key} should be string` || 'Error Occurred',
+            status: 'Bad Request',
           });
         }
       }
 
-      if (item && item.regex) {
-        console.log("Inside regex check middle ware");
-        const variable = values.filter(item => item);
-        const regex = item.regex;
+      if (items && items.regex) {
+        console.log('Inside regex check middle ware');
+        const variable = values.filter((item) => item);
+        const regex = items.regex;
         if (!regex.test(variable[0])) {
           next({
-            status: "Bad Request",
-            message: `${key} is Invalid` || "Error Occurred"
+            message: `${key} is Invalid` || 'Error Occurred',
+            status: 'Bad Request',
           });
         }
       }
 
-      if (item && item.isObject) {
-        const variable = values.filter(item => item);
-        if (typeof variable[0] != "object") {
+      if (items && items.isObject) {
+        const variable = values.filter((item) => item);
+        if (typeof variable[0] !== 'object') {
           next({
-            status: "Bad Request",
-            message: `${key} should be object` || "Error Occurred"
+            message: `${key} should be object` || 'Error Occurred',
+            status: 'Bad Request',
           });
         }
       }
 
-      if (item && item.custom) {
-        item.custom(values);
+      if (items && items.custom) {
+        items.custom(values);
       }
     });
     next();
-  };
+  });
 }
 
 export default validationHandler;
