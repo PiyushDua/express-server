@@ -12,19 +12,19 @@ UserRouter.get(
   .post(
     '/',
     // validationHandler(validation.create),
-    authMiddleWare('TRAINEE1', 'write'),
+    // authMiddleWare('TRAINEE1', 'write'),
     user.create,
   )
   .put(
     '/',
     // validationHandler(validation.update),
-    authMiddleWare('TRAINEE1', 'all'),
+    // authMiddleWare('TRAINEE1', 'all'),
     user.put,
   )
   .delete(
     '/:_id',
     // validationHandler(validation.delete),
-    authMiddleWare('TRAINEE1', 'delete'),
+    // authMiddleWare('TRAINEE1', 'delete'),
     user.delete,
   );
 

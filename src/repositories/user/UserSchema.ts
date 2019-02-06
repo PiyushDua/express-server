@@ -1,6 +1,6 @@
-import * as mongoose from 'mongoose';
+import VersionableSchema from '../versionable/VersionableSchema';
 
-export default class UserSchema extends mongoose.Schema {
+export default class UserSchema extends VersionableSchema {
   constructor(options: any) {
     const Schema = {
       _id: String,
