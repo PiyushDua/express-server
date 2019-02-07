@@ -26,9 +26,11 @@ class UserController {
 
   public create(req: Request, res: Response) {
     console.log('Inside create method');
+    console.log(req.query);
     const user = new UserRepository();
+    console.log(req.query);
     user
-      .create(req.body)
+      .createUser(req.query)
       .then((data) =>
         res
           .status(200)
@@ -39,9 +41,10 @@ class UserController {
   public put(req: Request, res: Response) {
     console.log('Inside put method');
     const user = new UserRepository();
-    const { oldData, newData } = req.body;
+    const { originalId, name } = req.query;
+    console.log('data..............', originalId, name);
     user
-      .update({ name: oldData }, { name: newData })
+      .updateUser({ name, originalId })
       .then(() =>
         res
           .status(200)
@@ -49,7 +52,7 @@ class UserController {
             successHandler(
               'Update',
               'Successfully Updated User',
-              `${newData} is the new updated value`,
+              `${name} is the new updated value`,
             ),
           ),
       );
@@ -59,7 +62,7 @@ class UserController {
     console.log('Inside delete method');
     const user = new UserRepository();
     user
-      .delete(req.params)
+      .deleteUser(req.params)
       .then(() =>
         res
           .status(200)
