@@ -1,9 +1,6 @@
 import * as mongoose from 'mongoose';
 
-export class VersionableRepository<
-  D extends mongoose.Document,
-  M extends mongoose.Model<D>
-> {
+export class VersionableRepository<D extends mongoose.Document, M extends mongoose.Model<D> > {
   private model: M;
   constructor(model) {
     console.log('Inside constructor');
@@ -22,16 +19,11 @@ export class VersionableRepository<
   }
 
   public delete(data) {
-    console.log(data);
-    return this.find(data).lean().then((founddata) => {
-        const del = founddata.deletedAt;
-        const name = founddata.name;
-        console.log(founddata);
-        if (!del) {
-            return this.model.updateOne(data, { $set: { deletedAt: true } } );
-        }
-    });
-  }
+    return this.find({ originalId: data.originalId, deletedAt: { $exists: false } }).lean().then((founddata) => {
+    console.log(founddata);
+    return this.model.updateOne({ _id: founddata._id}, { $set: { deletedAt: Date.now() } } );
+  });
+}
 
   public count() {
     return this.model.countDocuments();
@@ -39,27 +31,23 @@ export class VersionableRepository<
 
   public update(data) {
     console.log(data);
-    return this.find({ originalId: data.originalId, deletedAt: undefined })
-      .lean()
-      .then((data1) => {
-        this.create(Object.assign(data1, { name: data.name })).then(
-          (result) => {
-            return this.model.updateOne(
-              { _id: result._id },
-              { originalId: data.originalId },
-              (err) => {
-                console.log('Error');
-              });
+    return this.find({ originalId: data.originalId, deletedAt: { $exists: false } })
+      .lean().then((data1) => {
+        this.create(Object.assign(data1, { name: data.name })).then((result) => {
+          return this.model.updateOne({ _id: result._id },
+            { originalId: data.originalId, createdAt: Date.now() }, (err) => {
+              if (err) {
+                console.log('error');
+              }
+              else {
+                console.log('Successfully updated');
+              }
             });
-        this.model
-        .updateOne(
-          { _id: data1._id },
-          { $set: { deletedAt: true, createdAt: Date.now() } },
-          { upsert: true },
-        )
-        .then((err) => {
-          console.log(err);
         });
+        this.model.updateOne({ _id: data1._id },
+          { $set: { deletedAt: Date.now() } }, { upsert: true }).then((err) => {
+            console.log(err);
+          });
       });
   }
 

@@ -14,9 +14,9 @@ class UserController {
   public get(req, res: Response) {
     console.log('Inside get method');
     const user = new UserRepository();
-    console.log(req.body);
+    console.log(req.query);
     user
-      .findOne({ _id: req.body.id })
+      .findOne({ _id: req.query })
       .then((data) =>
         res
           .status(200)
@@ -26,11 +26,10 @@ class UserController {
 
   public create(req: Request, res: Response) {
     console.log('Inside create method');
-    console.log(req.query);
+    console.log(req.body);
     const user = new UserRepository();
-    console.log(req.query);
     user
-      .createUser(req.query)
+      .createUser(req.body)
       .then((data) =>
         res
           .status(200)
@@ -41,7 +40,9 @@ class UserController {
   public put(req: Request, res: Response) {
     console.log('Inside put method');
     const user = new UserRepository();
-    const { originalId, name } = req.query;
+    const { id, dataToUpdate } = req.body;
+    const originalId = id;
+    const name = dataToUpdate.name;
     console.log('data..............', originalId, name);
     user
       .updateUser({ name, originalId })
@@ -60,6 +61,7 @@ class UserController {
 
   public delete(req: Request, res: Response) {
     console.log('Inside delete method');
+    console.log(req.params);
     const user = new UserRepository();
     user
       .deleteUser(req.params)
@@ -74,6 +76,11 @@ class UserController {
             ),
           ),
       );
+  }
+
+  public createToken(req: Request, res: Response, next) {
+    const token = req.body.token;
+    res.status(200).send(successHandler('Ok', 'Token generated', token));
   }
 }
 

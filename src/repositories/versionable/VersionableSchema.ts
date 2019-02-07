@@ -10,7 +10,7 @@ export default class VersionableSchema extends mongoose.Schema {
         },
         deletedAt: {
           required: false,
-          type: Boolean,
+          type: Date,
         },
         originalId: {
           required: true,
