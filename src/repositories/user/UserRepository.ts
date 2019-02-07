@@ -15,19 +15,19 @@ export default class UserRepository extends VersionableRepository<
   }
 
   public findOne(query) {
-    return this.findUser(query);
+    return this.find(query);
   }
 
-  public create(data): Promise<IUserModel> {
+  public createUser(data): Promise<IUserModel> {
     console.log('Successfully Created');
-    return this.createUser(data);
+    return this.create(data);
   }
 
-  public delete(data) {
-    return this.deleteUser(data);
+  public deleteUser(data) {
+    return this.delete(data);
   }
 
-  public update(data) {
-    return this.updateUser(data);
+  public updateUser(data) {
+    return this.update(data);
   }
 }

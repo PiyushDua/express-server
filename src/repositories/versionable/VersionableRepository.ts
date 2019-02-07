@@ -1,4 +1,4 @@
-import * as mongoose from "mongoose";
+import * as mongoose from 'mongoose';
 
 export class VersionableRepository<
   D extends mongoose.Document,
@@ -14,16 +14,16 @@ export class VersionableRepository<
     return String(mongoose.Types.ObjectId());
   }
 
-  public createUser(data): Promise<D> {
+  public create(data): Promise<D> {
     const id = this.generateObjectId();
     const newData = { ...data, _id: id, originalId: id };
     console.log('>>>>>>>>>>>>>>>>>', newData);
     return this.model.create(newData);
   }
 
-  public deleteUser(data) {
+  public delete(data) {
     console.log(data);
-    return this.findUser(data).lean().then((founddata) => {
+    return this.find(data).lean().then((founddata) => {
         const del = founddata.deletedAt;
         const name = founddata.name;
         console.log(founddata);
@@ -37,12 +37,12 @@ export class VersionableRepository<
     return this.model.countDocuments();
   }
 
-  public updateUser(data) {
+  public update(data) {
     console.log(data);
-    return this.findUser({ originalId: data.originalId, deletedAt: undefined })
+    return this.find({ originalId: data.originalId, deletedAt: undefined })
       .lean()
       .then((data1) => {
-        this.createUser(Object.assign(data1, { name: data.name })).then(
+        this.create(Object.assign(data1, { name: data.name })).then(
           (result) => {
             return this.model.updateOne(
               { _id: result._id },
@@ -63,7 +63,7 @@ export class VersionableRepository<
       });
   }
 
-  public findUser(data) {
+  public find(data) {
     return this.model.findOne(data);
   }
 }

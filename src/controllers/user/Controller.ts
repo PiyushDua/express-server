@@ -30,7 +30,7 @@ class UserController {
     const user = new UserRepository();
     console.log(req.query);
     user
-      .create(req.query)
+      .createUser(req.query)
       .then((data) =>
         res
           .status(200)
@@ -62,7 +62,7 @@ class UserController {
     console.log('Inside delete method');
     const user = new UserRepository();
     user
-      .delete(req.params)
+      .deleteUser(req.params)
       .then(() =>
         res
           .status(200)
