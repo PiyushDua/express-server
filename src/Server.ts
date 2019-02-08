@@ -42,7 +42,6 @@ class Server {
             throw err;
           }
         });
-        console.log(res);
        // Database.disconnect();
         console.log(`App is running on ${port}`);
       })

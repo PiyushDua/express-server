@@ -8,7 +8,6 @@ function validationHandler(config) {
       });
 
       if (items && items.required) {
-        console.log('Inside required middle ware');
         const variable = values.filter((item) => item);
         if (variable.length !== values.length) {
           next({
@@ -18,7 +17,6 @@ function validationHandler(config) {
         }
       }
       if (items && !items.required) {
-        console.log('Inside required middle ware');
         const variable = values.filter((item) => item);
         if (isNaN(values)) {
           console.log('Not a number');
@@ -30,14 +28,12 @@ function validationHandler(config) {
       } else {
         if (values === '') {
           values = items.default;
-          console.log(key, '=', values);
         } else {
           console.log(key, '=', values);
         }
       }
 
       if (items && items.string) {
-        console.log('Inside string check middle ware');
         const variable = values.filter((item) => item);
         if (typeof variable[0] !== 'string') {
           next({
@@ -48,7 +44,6 @@ function validationHandler(config) {
       }
 
       if (items && items.regex) {
-        console.log('Inside regex check middle ware');
         const variable = values.filter((item) => item);
         const regex = items.regex;
         if (!regex.test(variable[0])) {

@@ -14,8 +14,8 @@ export default class UserRepository extends VersionableRepository<
     super(userModel);
   }
 
-  public findOne(query) {
-    return this.find(query);
+  public findOne(role, skip, limit) {
+    return this.findUser(role, skip, limit);
   }
 
   public createUser(data): Promise<IUserModel> {

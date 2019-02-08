@@ -9,6 +9,6 @@ export const PERMISSIONS: IPermissions = {
     all: [HEADTRAINER],
     delete: [],
     read: [TRAINEE, TRAINER],
-    write: [TRAINER],
+    write: [HEADTRAINER],
   },
 };

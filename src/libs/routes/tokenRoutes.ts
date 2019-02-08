@@ -1,16 +1,13 @@
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 import { IUserModel } from 'src/repositories/user/IUserModel';
-import { userModel } from './../../repositories/user/UserModel';
 import UserRepository from './../../repositories/user/UserRepository';
 
 const userRepo = new UserRepository();
 export default function tokenRoutes() {
   return (req, res , next) => {
-    const { emailid, pass } = req.query;
-    console.log(emailid, pass, '-------------------------------');
-    userRepo.findOne({ email: emailid }).then((result: IUserModel) => {
-      console.log(result);
+    const { Emailid, Password } = req.body;
+    userRepo.find({ email: Emailid }).then((result: IUserModel) => {
       if (!result) {
         next({
           error: 'Invalid Email',
@@ -19,12 +16,9 @@ export default function tokenRoutes() {
         });
       }
       const { password } = result;
-      console.log(result);
-      console.log('expiry time----', Math.floor(Date.now() / 1000) + 900);
-      if (bcrypt.compareSync(pass, password)) {
+      if (bcrypt.compareSync(Password, password)) {
         const token = jwt.sign({ result, exp: Math.floor(Date.now() / 1000) + 900 }, process.env.Key);
         req.body.token = token;
-        console.log(token);
         next();
       }
       else {
