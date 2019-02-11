@@ -18,7 +18,7 @@ const validation = {
     },
   },
   delete: {
-    id: {
+    originalId: {
       errorMessage: 'Id is required',
       in: ['params'],
       required: true,

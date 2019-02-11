@@ -13,7 +13,7 @@ class Database {
             console.log(
               'Successfully connected to the Database ...................',
             );
-            resolve({ data: 'hello' });
+            resolve({ data: 'Hello Users' });
           }
           seedData();
         },
@@ -23,7 +23,7 @@ class Database {
 
   public static disconnect() {
     if (mongoose.disconnect()) {
-      console.log('Successfully disconnected.................');
+      console.log('Successfully disconnected...........................');
     } else {
       console.log('Error in disconnecting');
     }
